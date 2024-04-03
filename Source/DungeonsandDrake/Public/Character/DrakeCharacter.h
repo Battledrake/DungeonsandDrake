@@ -14,4 +14,6 @@ class DUNGEONSANDDRAKE_API ADrakeCharacter : public ADnDCharacterBase
 {
 	GENERATED_BODY()
 	
+public:
+	ADrakeCharacter();
 };
