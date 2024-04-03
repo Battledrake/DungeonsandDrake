@@ -4,19 +4,22 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerController.h"
-#include "DrakePlayerController.generated.h"
+#include "DnDPlayerController.generated.h"
 
 class UInputMappingContext;
 class UInputAction;
 struct FInputActionValue;
+class IHighlightInterface;
 
 UCLASS()
-class DUNGEONSANDDRAKE_API ADrakePlayerController : public APlayerController
+class DUNGEONSANDDRAKE_API ADnDPlayerController : public APlayerController
 {
 	GENERATED_BODY()
 	
 public:
-	ADrakePlayerController();
+	ADnDPlayerController();
+
+	virtual void PlayerTick(float DeltaTime) override;
 
 protected:
 	virtual void BeginPlay() override;
@@ -30,5 +33,9 @@ private:
 	UPROPERTY(EditAnywhere, Category = Input)
 	TObjectPtr<UInputAction> MoveAction;
 
+	IHighlightInterface* CurrentActor;
+	IHighlightInterface* LastActor;
+
 	void Move(const FInputActionValue& InputActionValue);
+	void CursorTrace();
 };
