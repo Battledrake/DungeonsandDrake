@@ -62,7 +62,7 @@ void ADnDPlayerController::Move(const FInputActionValue& InputActionValue)
 void ADnDPlayerController::CursorTrace()
 {
 	FHitResult CursorHit;
-	if (GetHitResultUnderCursor(ECC_Camera, false, CursorHit))
+	if (GetHitResultUnderCursor(ECC_Visibility, false, CursorHit))
 	{
 		LastActor = CurrentActor;
 		CurrentActor = Cast<IHighlightInterface>(CursorHit.GetActor());

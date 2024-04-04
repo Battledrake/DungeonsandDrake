@@ -4,6 +4,7 @@
 #include "AbilitySystemInterface.h"
 #include "AbilitySystemComponent.h"
 #include "AbilitySystem/DnDAttributeSet.h"
+#include "DungeonsandDrake/DungeonsandDrake.h"
 
 ADnDEffectActor::ADnDEffectActor()
 {
@@ -14,6 +15,7 @@ ADnDEffectActor::ADnDEffectActor()
 
 	Sphere = CreateDefaultSubobject<USphereComponent>("Sphere");
 	Sphere->SetupAttachment(GetRootComponent());
+	Sphere->SetCollisionResponseToChannel(ECC_Visibility, ECR_Block);
 }
 
 void ADnDEffectActor::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, 
@@ -42,4 +44,15 @@ void ADnDEffectActor::BeginPlay()
 	
 	Sphere->OnComponentBeginOverlap.AddDynamic(this, &ADnDEffectActor::OnOverlap);
 	Sphere->OnComponentEndOverlap.AddDynamic(this, &ADnDEffectActor::EndOverlap);
+}
+
+void ADnDEffectActor::HighlightActor()
+{
+	Mesh->SetRenderCustomDepth(true);
+	Mesh->SetCustomDepthStencilValue(CUSTOM_DEPTH_BLUE);
+}
+
+void ADnDEffectActor::UnHighlightActor()
+{
+	Mesh->SetRenderCustomDepth(false);
 }
