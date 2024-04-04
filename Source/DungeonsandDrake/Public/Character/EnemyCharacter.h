@@ -15,11 +15,16 @@ class DUNGEONSANDDRAKE_API AEnemyCharacter : public ADnDCharacterBase, public IH
 {
 	GENERATED_BODY()
 
-	AEnemyCharacter();
-	
 public:
+	AEnemyCharacter();
+
+	//~ Begin Highlight Interface
 	virtual void HighlightActor() override;
 	virtual void UnHighlightActor() override;
+	//~ End Highlight Interface
+
+protected:
+	virtual void BeginPlay() override;
 
 private:
 	void SetCustomDepthStencil(UPrimitiveComponent* MeshComponent, bool bEnableCustomDepth, int32 StencilValue = 0);

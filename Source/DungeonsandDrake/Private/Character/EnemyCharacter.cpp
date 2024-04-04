@@ -7,10 +7,18 @@
 #include "Kismet/KismetSystemLibrary.h"
 #include "Components/CapsuleComponent.h"
 #include "DungeonsandDrake/DungeonsandDrake.h"
+#include "AbilitySystem/DnDAbilitySystemComponent.h"
+#include "AbilitySystem/DnDAttributeSet.h"
 
 AEnemyCharacter::AEnemyCharacter()
 {
 	GetMesh()->SetCollisionResponseToChannel(ECC_Visibility, ECR_Block);
+
+	AbilitySystemComponent = CreateDefaultSubobject<UDnDAbilitySystemComponent>("AbilitySystemComponent");
+	AbilitySystemComponent->SetIsReplicated(true);
+	AbilitySystemComponent->SetReplicationMode(EGameplayEffectReplicationMode(EGameplayEffectReplicationMode::Minimal));
+
+	AttributeSet = CreateDefaultSubobject<UDnDAttributeSet>("AttributeSet");
 }
 
 void AEnemyCharacter::HighlightActor()
@@ -29,6 +37,13 @@ void AEnemyCharacter::UnHighlightActor()
 	SetCustomDepthStencil(GetMesh(), false);
 	SetCustomDepthStencil(Weapon, false);
 	SetCustomDepthStencil(StaticWeapon, false);
+}
+
+void AEnemyCharacter::BeginPlay()
+{
+	Super::BeginPlay();
+
+	AbilitySystemComponent->InitAbilityActorInfo(this, this);
 }
 
 void AEnemyCharacter::SetCustomDepthStencil(UPrimitiveComponent* MeshComponent, bool bEnableCustomDepth, int32 StencilValue)
