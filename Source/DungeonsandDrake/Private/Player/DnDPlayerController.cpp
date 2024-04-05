@@ -2,10 +2,26 @@
 #include "EnhancedInputSubsystems.h"
 #include "EnhancedInputComponent.h"
 #include "Interaction/HighlightInterface.h"
+#include "Player/DnDPlayerState.h"
+#include "UI/HUD/DnDHUD.h"
 
 ADnDPlayerController::ADnDPlayerController()
 {
 	bReplicates = true;
+}
+
+void ADnDPlayerController::AcknowledgePossession(class APawn* P)
+{
+	ADnDPlayerState* DnDPlayerState = GetPlayerState<ADnDPlayerState>();
+	check(DnDPlayerState);
+
+	if (ADnDPlayerController* DnDPlayerController = Cast<ADnDPlayerController>(P->GetController()))
+	{
+		if (ADnDHUD* DnDHUD = Cast<ADnDHUD>(DnDPlayerController->GetHUD()))
+		{
+			DnDHUD->InitOverlay(DnDPlayerController, DnDPlayerState, DnDPlayerState->GetAbilitySystemComponent(), DnDPlayerState->GetAttributeSet());
+		}
+	}
 }
 
 void ADnDPlayerController::PlayerTick(float DeltaTime)
@@ -21,9 +37,10 @@ void ADnDPlayerController::BeginPlay()
 
 	check(DrakeContext);
 
-	UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer());
-	check(Subsystem);
-	Subsystem->AddMappingContext(DrakeContext, 0);
+	if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer()))
+	{
+		Subsystem->AddMappingContext(DrakeContext, 0);
+	}
 
 	bShowMouseCursor = true;
 	DefaultMouseCursor = EMouseCursor::Default;
@@ -83,7 +100,7 @@ void ADnDPlayerController::CursorTrace()
 		/*
 			A.	LastActor && CurrentActor == null
 			 - DoNothing
-		
+
 			B. LastActor is null && CurrentActor is valid
 			 - Highlight Current Actor
 

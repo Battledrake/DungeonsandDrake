@@ -19,6 +19,8 @@ class DUNGEONSANDDRAKE_API ADnDPlayerController : public APlayerController
 public:
 	ADnDPlayerController();
 
+	virtual void AcknowledgePossession(class APawn* P) override;
+
 	virtual void PlayerTick(float DeltaTime) override;
 
 protected:

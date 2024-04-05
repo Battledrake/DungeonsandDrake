@@ -7,6 +7,12 @@
 #include "DnDHUD.generated.h"
 
 class UDnDUserWidget;
+class UOverlayWidgetController;
+struct FWidgetControllerParams;
+class APlayerController;
+class APlayerState;
+class UAbilitySystemComponent;
+class UAttributeSet;
 
 UCLASS()
 class DUNGEONSANDDRAKE_API ADnDHUD : public AHUD
@@ -17,12 +23,21 @@ public:
 	UPROPERTY()
 	TObjectPtr<UDnDUserWidget> OverlayWidget;
 
+	UOverlayWidgetController* GetOverlayWidgetController(const FWidgetControllerParams& WCParams);
+
+	void InitOverlay(APlayerController* PC, APlayerState* PS, UAbilitySystemComponent* ASC, UAttributeSet* AS);
+
 protected:
 
-	virtual void BeginPlay() override;
-	
+
 private:
 
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<UDnDUserWidget> OverlayWidgetClass;
+
+	UPROPERTY()
+	TObjectPtr<UOverlayWidgetController> OverlayWidgetController;
+
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<UOverlayWidgetController> OverlayWidgetControllerClass;
 };

@@ -5,6 +5,7 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Player/DnDPlayerState.h"
 #include "AbilitySystemComponent.h"
+#include "Player/DnDPlayerController.h"
 
 ADrakeCharacter::ADrakeCharacter()
 {
@@ -41,4 +42,12 @@ void ADrakeCharacter::InitAbilityActorInfo()
 	AttributeSet = DnDPlayerState->GetAttributeSet();
 
 	AbilitySystemComponent->InitAbilityActorInfo(DnDPlayerState, this);
+
+	//if (ADnDPlayerController* DnDPlayerController = Cast<ADnDPlayerController>(GetController()))
+	//{
+	//	if (ADnDHUD* DnDHUD = Cast<ADnDHUD>(DnDPlayerController->GetHUD()))
+	//	{
+	//		DnDHUD->InitOverlay(DnDPlayerController, DnDPlayerState, AbilitySystemComponent, AttributeSet);
+	//	}
+	//}
 }
