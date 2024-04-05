@@ -15,9 +15,9 @@ void ADnDPlayerController::AcknowledgePossession(class APawn* P)
 	ADnDPlayerState* DnDPlayerState = GetPlayerState<ADnDPlayerState>();
 	check(DnDPlayerState);
 
-	if (ADnDPlayerController* DnDPlayerController = Cast<ADnDPlayerController>(P->GetController()))
+	if (ADnDPlayerController* DnDPlayerController = P->GetController<ADnDPlayerController>())
 	{
-		if (ADnDHUD* DnDHUD = Cast<ADnDHUD>(DnDPlayerController->GetHUD()))
+		if (ADnDHUD* DnDHUD = GetHUD<ADnDHUD>())
 		{
 			DnDHUD->InitOverlay(DnDPlayerController, DnDPlayerState, DnDPlayerState->GetAbilitySystemComponent(), DnDPlayerState->GetAttributeSet());
 		}

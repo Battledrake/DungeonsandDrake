@@ -23,9 +23,10 @@ void ADnDHUD::InitOverlay(APlayerController* PC, APlayerState* PS, UAbilitySyste
 	OverlayWidget = CreateWidget<UDnDUserWidget>(GetWorld(), OverlayWidgetClass);
 	
 	const FWidgetControllerParams WidgetControllerParams(PC, PS, ASC, AS);
+	UOverlayWidgetController* WidgetController = GetOverlayWidgetController(WidgetControllerParams);
 
-	OverlayWidget->SetWidgetController(GetOverlayWidgetController(WidgetControllerParams));
-
+	OverlayWidget->SetWidgetController(WidgetController);
+	WidgetController->BroadcastInitialValues();
 
 	OverlayWidget->AddToViewport();
 }

@@ -42,12 +42,4 @@ void ADrakeCharacter::InitAbilityActorInfo()
 	AttributeSet = DnDPlayerState->GetAttributeSet();
 
 	AbilitySystemComponent->InitAbilityActorInfo(DnDPlayerState, this);
-
-	//if (ADnDPlayerController* DnDPlayerController = Cast<ADnDPlayerController>(GetController()))
-	//{
-	//	if (ADnDHUD* DnDHUD = Cast<ADnDHUD>(DnDPlayerController->GetHUD()))
-	//	{
-	//		DnDHUD->InitOverlay(DnDPlayerController, DnDPlayerState, AbilitySystemComponent, AttributeSet);
-	//	}
-	//}
 }
