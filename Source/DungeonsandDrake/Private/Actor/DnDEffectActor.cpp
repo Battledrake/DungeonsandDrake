@@ -28,6 +28,7 @@ void ADnDEffectActor::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor
 
 		UDnDAttributeSet* MutableDnDAttributeSet = const_cast<UDnDAttributeSet*>(DnDAttributeSet);
 		MutableDnDAttributeSet->SetHealth(DnDAttributeSet->GetHealth() + 25.f);
+		MutableDnDAttributeSet->SetMana(DnDAttributeSet->GetMana() + 20.f);
 		Destroy();
 	}
 }
