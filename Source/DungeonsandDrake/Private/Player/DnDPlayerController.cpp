@@ -12,6 +12,8 @@ ADnDPlayerController::ADnDPlayerController()
 
 void ADnDPlayerController::AcknowledgePossession(class APawn* P)
 {
+	Super::AcknowledgePossession(P);
+
 	ADnDPlayerState* DnDPlayerState = GetPlayerState<ADnDPlayerState>();
 	check(DnDPlayerState);
 
@@ -37,7 +39,8 @@ void ADnDPlayerController::BeginPlay()
 
 	check(DrakeContext);
 
-	if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer()))
+	UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer());
+	if(Subsystem)
 	{
 		Subsystem->AddMappingContext(DrakeContext, 0);
 	}

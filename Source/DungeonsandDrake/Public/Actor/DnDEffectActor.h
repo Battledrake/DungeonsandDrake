@@ -7,6 +7,7 @@
 
 class USphereComponent;
 class UStaticMeshComponent;
+class UGameplayEffect;
 
 UCLASS()
 class DUNGEONSANDDRAKE_API ADnDEffectActor : public AActor, public IHighlightInterface
@@ -28,6 +29,15 @@ public:
 
 protected:
 	virtual void BeginPlay() override;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Applied Effects");
+	TSubclassOf<UGameplayEffect> InstantGameplayEffectClass;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Applied Effects");
+	TSubclassOf<UGameplayEffect> DurationGameplayEffectClass;
+
+	UFUNCTION(BlueprintCallable)
+	void ApplyEffectToTarget(AActor* TargetActor, TSubclassOf<UGameplayEffect> GameplayEffectClass);
 
 private:
 	UPROPERTY(VisibleAnywhere)
