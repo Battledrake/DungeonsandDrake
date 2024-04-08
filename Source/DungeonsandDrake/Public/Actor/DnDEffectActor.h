@@ -53,23 +53,26 @@ protected:
 	void ApplyEffectToTarget(AActor* TargetActor, TSubclassOf<UGameplayEffect> GameplayEffectClass);
 
 	UFUNCTION(BlueprintCallable)
+	void ApplyEffectsToTarget(AActor* TargetActor, TArray<TSubclassOf<UGameplayEffect>> GameplayEffectClasses);
+
+	UFUNCTION(BlueprintCallable)
 	void OnOverlap(AActor* TargetActor);
 
 	UFUNCTION(BlueprintCallable)
 	void OnEndOverlap(AActor* TargetActor);
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Applied Effects")
-	TSubclassOf<UGameplayEffect> InstantGameplayEffectClass;
+	TArray<TSubclassOf<UGameplayEffect>> InstantGameplayEffectClasses;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Applied Effects")
 	EEffectApplicationPolicy InstantEffectApplicationPolicy = EEffectApplicationPolicy::DoNotApply;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Applied Effects")
-	TSubclassOf<UGameplayEffect> DurationGameplayEffectClass;
+	TArray<TSubclassOf<UGameplayEffect>> DurationGameplayEffectClasses;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Applied Effects")
 	EEffectApplicationPolicy DurationEffectApplicationPolicy = EEffectApplicationPolicy::DoNotApply;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Applied Effects")
-	TSubclassOf<UGameplayEffect> InfiniteGameplayEffectClass;
+	TArray<TSubclassOf<UGameplayEffect>> InfiniteGameplayEffectClasses;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Applied Effects")
 	EEffectApplicationPolicy InfiniteEffectApplicationPolicy = EEffectApplicationPolicy::DoNotApply;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Applied Effects")
