@@ -81,20 +81,6 @@ void ADnDEffectActor::OnEndOverlap(AActor* TargetActor)
 			{
 				TargetASC->RemoveActiveGameplayEffectBySourceEffect(InfiniteEffect, TargetASC, 1);
 			}
-
-			//TArray<FActiveGameplayEffectHandle> HandlesToRemove;
-			//for (auto HandlePair : ActiveEffectHandles)
-			//{
-			//	if (TargetASC == HandlePair.Value)
-			//	{
-			//		TargetASC->RemoveActiveGameplayEffect(HandlePair.Key, 1);
-			//		HandlesToRemove.Add(HandlePair.Key);
-			//	}
-			//}
-			//for (auto& Handle : HandlesToRemove)
-			//{
-			//	ActiveEffectHandles.FindAndRemoveChecked(Handle);
-			//}
 		}
 	}
 }
@@ -102,9 +88,6 @@ void ADnDEffectActor::OnEndOverlap(AActor* TargetActor)
 void ADnDEffectActor::BeginPlay()
 {
 	Super::BeginPlay();
-
-	//Sphere->OnComponentBeginOverlap.AddDynamic(this, &ADnDEffectActor::OnOverlap);
-	//Sphere->OnComponentEndOverlap.AddDynamic(this, &ADnDEffectActor::EndOverlap);
 }
 
 void ADnDEffectActor::ApplyEffectToTarget(AActor* TargetActor, TSubclassOf<UGameplayEffect> GameplayEffectClass)
@@ -115,14 +98,8 @@ void ADnDEffectActor::ApplyEffectToTarget(AActor* TargetActor, TSubclassOf<UGame
 
 		FGameplayEffectContextHandle EffectContextHandle = TargetASC->MakeEffectContext();
 		EffectContextHandle.AddSourceObject(this);
-		const FGameplayEffectSpecHandle EffectSpecHandle = TargetASC->MakeOutgoingSpec(GameplayEffectClass, 1.0f, EffectContextHandle);
+		const FGameplayEffectSpecHandle EffectSpecHandle = TargetASC->MakeOutgoingSpec(GameplayEffectClass, ActorLevel, EffectContextHandle);
 		FActiveGameplayEffectHandle ActiveEffectHandle = TargetASC->ApplyGameplayEffectSpecToSelf(*EffectSpecHandle.Data.Get());
-
-		//const bool bIsInfinite = EffectSpecHandle.Data.Get()->Def.Get()->DurationPolicy == EGameplayEffectDurationType::Infinite;
-		//if (bIsInfinite && InfiniteEffectRemovalPolicy == EEffectRemovalPolicy::RemoveOnEndOverlap)
-		//{
-		//	ActiveEffectHandles.Add(ActiveEffectHandle, TargetASC);
-		//}
 	}
 }
 
