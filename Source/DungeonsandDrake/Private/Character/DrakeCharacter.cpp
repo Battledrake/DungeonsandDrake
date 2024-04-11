@@ -6,6 +6,7 @@
 #include "Player/DnDPlayerState.h"
 #include "AbilitySystemComponent.h"
 #include "Player/DnDPlayerController.h"
+#include "AbilitySystem/DnDAbilitySystemComponent.h"
 
 ADrakeCharacter::ADrakeCharacter()
 {
@@ -39,6 +40,7 @@ void ADrakeCharacter::InitAbilityActorInfo()
 	check(DnDPlayerState);
 
 	AbilitySystemComponent = DnDPlayerState->GetAbilitySystemComponent();
+	Cast<UDnDAbilitySystemComponent>(AbilitySystemComponent)->AbilityActorInfoSet();
 	AttributeSet = DnDPlayerState->GetAttributeSet();
 
 	AbilitySystemComponent->InitAbilityActorInfo(DnDPlayerState, this);

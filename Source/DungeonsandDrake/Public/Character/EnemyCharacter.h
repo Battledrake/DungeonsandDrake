@@ -26,6 +26,8 @@ public:
 protected:
 	virtual void BeginPlay() override;
 
+	virtual void InitAbilityActorInfo() override;
+
 private:
 	void SetCustomDepthStencil(UPrimitiveComponent* MeshComponent, bool bEnableCustomDepth, int32 StencilValue = 0);
 };

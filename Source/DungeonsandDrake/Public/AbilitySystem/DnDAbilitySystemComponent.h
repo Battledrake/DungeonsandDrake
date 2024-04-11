@@ -6,12 +6,20 @@
 #include "AbilitySystemComponent.h"
 #include "DnDAbilitySystemComponent.generated.h"
 
-/**
- * 
- */
+
+DECLARE_MULTICAST_DELEGATE_OneParam(FEffectAssetTags, const FGameplayTagContainer&);
+
 UCLASS()
 class DUNGEONSANDDRAKE_API UDnDAbilitySystemComponent : public UAbilitySystemComponent
 {
 	GENERATED_BODY()
+
+public:
+	void AbilityActorInfoSet();
 	
+	FEffectAssetTags EffectAssetTags;
+
+protected:
+	void EffectApplied(UAbilitySystemComponent* AbilitySystemComponent, const FGameplayEffectSpec& EffectSpec, FActiveGameplayEffectHandle ActiveEffectHandle);
+
 };
